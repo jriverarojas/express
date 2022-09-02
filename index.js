@@ -4,6 +4,10 @@ const app = express();
 
 //middleware
 app.use(express.json());
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 const port = process.env.PORT;
 //Handlers
@@ -14,6 +18,7 @@ const getAllProducts = (req, res) => {
 
   res.status(200).json({
     status: "success",
+    timeOfRequest: req.requestTime,
     results: products.length,
     data: {
       products,
