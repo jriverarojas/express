@@ -62,10 +62,12 @@ const getProductById = (req, res) => {
     });
   }
 };
+const productRouter = express.Router();
+app.use("/api/v1/products/", productRouter);
+
 //routes
-app.get("/api/v1/products", getAllProducts);
-app.post("/api/v1/products", addProduct);
-app.get("/api/v1/products/:id", getProductById);
+productRouter.route("/").get(getAllProducts).post(addProduct);
+productRouter.route("/:id").get(getProductById);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
