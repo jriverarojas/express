@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --inspect -r dotenv/config index.js"
+    "dev": "nodemon --inspect -r dotenv/config server.js"
   },
   "author": "",
   "license": "ISC",
