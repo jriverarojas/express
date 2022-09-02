@@ -1,11 +1,13 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+
+//middleware
 app.use(express.json());
 
 const port = process.env.PORT;
-
-app.get("/api/v1/products", (req, res) => {
+//Handlers
+const getAllProducts = (req, res) => {
   const products = JSON.parse(
     fs.readFileSync(`${__dirname}/data/products.json`)
   );
@@ -17,9 +19,9 @@ app.get("/api/v1/products", (req, res) => {
       products,
     },
   });
-});
+};
 
-app.post("/api/v1/products", (req, res) => {
+const addProduct = (req, res) => {
   const products = JSON.parse(
     fs.readFileSync(`${__dirname}/data/products.json`)
   );
@@ -32,9 +34,9 @@ app.post("/api/v1/products", (req, res) => {
       products,
     },
   });
-});
+};
 
-app.get("/api/v1/products/:id", (req, res) => {
+const getProductById = (req, res) => {
   const products = JSON.parse(
     fs.readFileSync(`${__dirname}/data/products.json`)
   );
@@ -52,7 +54,11 @@ app.get("/api/v1/products/:id", (req, res) => {
       status: "not found",
     });
   }
-});
+};
+//routes
+app.get("/api/v1/products", getAllProducts);
+app.post("/api/v1/products", addProduct);
+app.get("/api/v1/products/:id", getProductById);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
