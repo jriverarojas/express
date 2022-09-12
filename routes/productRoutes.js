@@ -8,6 +8,9 @@ productRouter
   .all(authController.protect)
   .get(productController.getAllProducts)
   .post(productController.addProduct);
-productRouter.route("/:id").get(productController.getProductById);
+productRouter
+  .route("/:id")
+  .all(authController.protect)
+  .get(productController.getProductById);
 
 module.exports = productRouter;
